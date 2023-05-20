@@ -28,4 +28,4 @@ class FireModel:
         preds_val_t = (preds_val > 0.5).astype(np.uint8)
         
         # return original image and fire segmentation result
-        return img, preds_val_t[0]
+        return img, preds_val_t[0, :, :, :]
