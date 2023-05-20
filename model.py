@@ -4,13 +4,16 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 class FireModel:
-    def __init__(self, yolo_model_path, unet_model_path):
+    def __init__(
+        self, yolo_model_path='models/yolo_fire.pt',
+        unet_model_path='models/unet_fire_best.h5',
+        ):
         self.yolo_model = YOLO(yolo_model_path)
         self.unet_model = tf.keras.models.load_model(unet_model_path)
         
     def predict(self, img_path):
         # detect fire using yolo
-        detections = self.yolo_model(image)
+        detections = self.yolo_model(img_path)
         boxes = detections[0].boxes.data
         
         # isolate/mask fire detection result
