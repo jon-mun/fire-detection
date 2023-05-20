@@ -10,17 +10,17 @@ class FireModel:
         
     def predict(self, img_path):
         # read image
-        image = plt.imread(img_path)
+        img = plt.imread(img_path)
         
         # detect fire using yolo
         detections = self.yolo_model(img_path)
         boxes = detections[0].boxes.data
         
         # isolate/mask fire detection result
-        isolated = np.zeros(image.shape, dtype=np.uint8)
+        isolated = np.zeros(img.shape, dtype=np.uint8)
         
         for box in boxes:
-            isolated[int(box[1]):int(box[3]), int(box[0]):int(box[2])] = image[int(box[1]):int(box[3]), int(box[0]):int(box[2])]
+            isolated[int(box[1]):int(box[3]), int(box[0]):int(box[2])] = img[int(box[1]):int(box[3]), int(box[0]):int(box[2])]
         
         # segment fire using unet
         isolated = tf.image.resize(isolated, (128, 128))
@@ -28,4 +28,4 @@ class FireModel:
         preds_val_t = (preds_val > 0.5).astype(np.uint8)
         
         # return original image and fire segmentation result
-        return image, preds_val_t
+        return imagimg, preds_val_t
