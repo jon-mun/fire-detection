@@ -24,7 +24,7 @@ class FireModel:
         
         # segment fire using unet
         isolated = tf.image.resize(isolated, (128, 128))
-        preds_val = unet_model.predict(np.expand_dims(isolated, axis=0))
+        preds_val = self.unet_model.predict(np.expand_dims(isolated, axis=0))
         preds_val_t = (preds_val > 0.5).astype(np.uint8)
         
         # return original image and fire segmentation result
