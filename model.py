@@ -12,12 +12,14 @@ class FireModel:
         self.unet_model = tf.keras.models.load_model(unet_model_path)
         
     def predict(self, img_path):
+        # read image
+        image = plt.imread(img_path)
+        
         # detect fire using yolo
         detections = self.yolo_model(img_path)
         boxes = detections[0].boxes.data
         
         # isolate/mask fire detection result
-        image = plt.imread(img_path)
         isolated = np.zeros(image.shape, dtype=np.uint8)
         
         for box in boxes:
