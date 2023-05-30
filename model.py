@@ -3,7 +3,7 @@ import tensorflow as tf
 import numpy as np
 import matplotlib.pyplot as plt
 import cv2
-from sklearn.metrics import confusion_matrix, classification_report
+from sklearn.metrics import confusion_matrix, classification_report, ConfusionMatrixDisplay
 
 class FireModel:
     def __init__(self, yolo_model_path='models/yolo_fire.pt', unet_model_path='models/unet_fire_best.h5') -> None:
@@ -73,6 +73,8 @@ class FireModel:
         # Print evaluation metrics, confusion matrix, and classification report
         print("Intersection over Union (IoU):", iou)
         print("\nConfusion Matrix:")
-        print(confusion)
+        # print(confusion)
+        ConfusionMatrixDisplay(confusion)
+        
         # print("\nClassification Report:")
         # print(report)
