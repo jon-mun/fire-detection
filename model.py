@@ -68,7 +68,7 @@ class FireModel:
 
         # Compute confusion matrix and classification report
         confusion = confusion_matrix(ground_truths_flat, predictions_flat)
-        report = classification_report(ground_truths_flat, predictions_flat, target_names=["Background", "Fire"])
+        report = classification_report(ground_truths_flat, predictions_flat, target_names=["Fire"])
 
         # Print evaluation metrics, confusion matrix, and classification report
         print("Intersection over Union (IoU):", iou)
