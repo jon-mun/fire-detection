@@ -2,6 +2,7 @@ from ultralytics import YOLO
 import tensorflow as tf
 import numpy as np
 import matplotlib.pyplot as plt
+import cv2
 
 class FireModel:
     def __init__(self, yolo_model_path='models/yolo_fire.pt', unet_model_path='models/unet_fire_best.h5') -> None:
