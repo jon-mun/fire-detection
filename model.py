@@ -3,6 +3,7 @@ import tensorflow as tf
 import numpy as np
 import matplotlib.pyplot as plt
 import cv2
+from sklearn.metrics import confusion_matrix, classification_report
 
 class FireModel:
     def __init__(self, yolo_model_path='models/yolo_fire.pt', unet_model_path='models/unet_fire_best.h5') -> None:
