@@ -62,12 +62,13 @@ class FireModel:
             # flatten and calculate iou
             pred_flat = predicted_mask.flatten()
             gt_flat = ground_truth_mask.flatten()
+            gt_flat = (gt_flat > 0).astype(np.uint8) # normalize pixels
 
             # Calculate evaluation metrics
             intersection = np.logical_and(pred_flat, gt_flat).sum()
             union = np.logical_or(pred_flat, gt_flat).sum()
             iou = intersection/union
-            dice = (2 * np.sum(intersection)) / (np.sum(predicted_mask) + np.sum(ground_truth_mask))
+            dice = (2 * np.sum(intersection)) / (np.sum(pred_flat) + np.sum(gt_flat))
             pixel_accuracy = np.sum(predicted_mask == ground_truth_mask) / (ground_truth_mask.shape[0] * ground_truth_mask.shape[1])
 
             # Append evaluation metrics
