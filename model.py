@@ -3,6 +3,7 @@ import tensorflow as tf
 import numpy as np
 import matplotlib.pyplot as plt
 import cv2
+from tqdm import tqdm
 
 class FireModel:
     def __init__(self, yolo_model_path='models/yolo_fire.pt', unet_model_path='models/unet_fire_best.h5') -> None:
@@ -44,7 +45,7 @@ class FireModel:
         pixel_accuracy_scores = []
 
         # Iterate over test images and masks
-        for image_path, mask_path in zip(test_images, test_masks):
+        for image_path, mask_path in tqdm(zip(test_images, test_masks)):
             # Load image and ground truth mask
             image = cv2.imread(image_path)
             ground_truth_mask = cv2.imread(mask_path, cv2.IMREAD_GRAYSCALE)
@@ -84,6 +85,7 @@ class FireModel:
         mean_pixel_accuracy = np.mean(pixel_accuracy_scores)
 
         # Print evaluation metrics
+        print("\n")
         print("Mean Average Intersection over Union (mIoU):", mean_iou)
         print("Mean Dice Coefficient:", mean_dice)
         print("Mean Pixel Accuracy:", mean_pixel_accuracy)
